@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-image: url('aeg2.png');
+      background-size: 100% 1550%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+      h1 {
+        margin-left: 200px;
+      }
+      h2 {
+        margin-right: 300px;
+      }
+
+      #video-container {
+        float: left;
+        margin-right: 50%;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      #translate-button {
+        clear: both;
+        margin-top: 10px;
+        margin-left: 300px;
+        font-size: 18px;
+        padding: 10px 20px;
+      }
+
+      #translation-title {
+        position: absolute;
+        top: -28px;
+        right: 0;
+        padding: 20px;
+
+      }
+
+      #translated-text-container {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        padding: 20px;
+        background-color: #d3d3d3;
+        width: 50%;
+        overflow: auto;
+        height: 100vh;
+      }
+      #translation-title h2 {
+      font-size:33px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <h1>Scan Your Text</h1>
+
+    <div id="video-container">
+      <img src="http://localhost:5001/video" />
+    </div>
+
+    <div id="translation-title">
+      <h2>The Translation</h2>
+    </div>
+
+    <div id="translated-text-container">
+      //gÃ¼ncelleniyor
+    </div>
+
+    <button id="translate-button" onclick="captureScreenshot()">Translate</button>
+
+    <script>
+      function captureScreenshot() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:5001/capture", true);
+        xhr.send();
+
+        setInterval(function() {
+          fetch('tara1.txt')
+            .then(response => response.text())
+            .then(data => {
+              // Update the content of the translated-text-container
+              document.getElementById('translated-text-container').innerText = data;
+            });
+        }, 5000);
+      }
+    </script>
+  </body>
+
+</html>
